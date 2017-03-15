@@ -15,7 +15,7 @@ return array(
     //模块作者
     'author' => 'Jayin',
     //作者地址
-    'authorsite' => 'http://www.ztbcms.com',
+    'authorsite' => 'http://www.jayinton.com',
     //作者邮箱
     'authoremail' => 'admin@ztbcms.com',
     //版本号，请不要带除数字外的其他字符
