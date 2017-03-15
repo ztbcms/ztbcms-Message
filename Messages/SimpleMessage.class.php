@@ -8,9 +8,9 @@ namespace Message\Messages;
 
 
 use Message\Libs\Message;
-use Message\Libs\Sender;
 use Message\Model\MessageModel;
 use Message\Senders\SimpleSender;
+use Message\Senders\SimpleWxSender;
 
 /**
  * 简单的消息实现,模拟用户A给会员B发私信
@@ -41,9 +41,14 @@ class SimpleMessage extends Message {
     }
 
     /**
-     * @return Sender
+     * 消息分发渠道
+     *
+     * @return array Senders数组
      */
     function createSender() {
-        return new SimpleSender();
+        return [
+            new SimpleSender(),
+            new SimpleWxSender()
+        ];
     }
 }

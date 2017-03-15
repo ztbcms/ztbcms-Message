@@ -7,6 +7,7 @@
 namespace Message\Service;
 
 use Message\Libs\Message;
+use Message\Libs\Sender;
 use Message\Model\MessageModel;
 use System\Service\BaseService;
 
@@ -61,21 +62,30 @@ class MessageService extends BaseService {
     static function handleMessage($message_id) {
         $db = D('Message/Message');
         $msg = $db->where(['id' => $message_id])->find();
-//        var_dump($msg);
 
         if ($msg && !empty($msg['class'])) {
             $message = self::instance($msg);
-            $sender = $message->createSender();
+            $senders = $message->createSender();
+            //标识发送时间
             self::updateMessage($message_id, ['send_time' => time()]);
-            $result = $sender->doSend($message);
-            if($result){
-                self::updateMessage($message_id, ['process_status' => MessageModel::PROCESS_STATUS_PROCESSED]);
+            //每个Sender都发送
+            foreach ($senders as $index => $sender){
+                self::sendMessage($sender, $message);
             }
-
+            //标识为已处理
+            self::updateMessage($message_id, ['process_status' => MessageModel::PROCESS_STATUS_PROCESSED]);
         }
 
-
         return self::createReturn(true, '');
+    }
+
+    /**
+     * @param Sender  $sender
+     * @param Message $message
+     * @return bool
+     */
+    private static function sendMessage(Sender $sender, Message $message){
+        return $sender->doSend($message);
     }
 
     /**

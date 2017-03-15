@@ -43,24 +43,10 @@ abstract class Message {
 
     protected $read_status = 0;
 
-
-
     /**
-     * @return mixed
-     */
-    public function getType() {
-        return $this->type;
-    }
-
-    /**
-     * @param mixed $type
-     */
-    public function setType($type) {
-        $this->type = $type;
-    }
-
-    /**
-     * @return Sender
+     * 消息分发渠道
+     *
+     * @return array Senders数组
      */
     abstract function createSender();
 
@@ -230,6 +216,20 @@ abstract class Message {
      */
     public function setClass($class) {
         $this->class = $class;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType() {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type) {
+        $this->type = $type;
     }
 
 
