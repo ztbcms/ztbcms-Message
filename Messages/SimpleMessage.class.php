@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * author: Jayin <tonjayin@gmail.com>
+ */
+
+namespace Message\Messages;
+
+
+use Message\Libs\Message;
+use Message\Libs\Sender;
+use Message\Model\MessageModel;
+use Message\Senders\SimpleSender;
+
+/**
+ * 简单的消息实现,模拟用户A给会员B发私信
+ */
+class SimpleMessage extends Message {
+
+
+    /**
+     * SimpleMessage constructor.
+     *
+     * @param string $sender
+     * @param string $receiver 接收人ID
+     * @param string $content  消息ID
+     */
+    public function __construct($sender, $receiver, $content = '') {
+        $this->setContent($content);
+        $this->setType(MessageModel::TYPE_MESSAGE);
+
+        $this->setSender($sender);
+        $this->setSenderType('member');//默认自定义的类型
+
+        $this->setReceiver($receiver);
+        $this->setReceiverType('member');
+
+        $this->setTarget('1');
+        $this->setTargetType('11');
+
+    }
+
+    /**
+     * @return Sender
+     */
+    function createSender() {
+        return new SimpleSender();
+    }
+}
