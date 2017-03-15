@@ -25,7 +25,9 @@ return array(
     //签名
     'sign' => 'd78d201337cf9f6ea9ca8d73e8c8fefe',
     //依赖模块
-    'depend' => array(),
+    'depend' => array(
+        'Cron'
+    ),
     //注册缓存
     'cache' => array(),
 );
