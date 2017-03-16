@@ -95,7 +95,7 @@ class MessageService extends BaseService {
      * @param array $data
      * @return array
      */
-    public static function updateMessage($message_id, array $data) {
+    private static function updateMessage($message_id, array $data) {
         $db = D('Message/Message');
         $result = $db->where(['id' => $message_id])->save($data);
         if ($result) {
