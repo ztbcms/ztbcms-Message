@@ -8,6 +8,7 @@ namespace Message\Senders;
 
 use Message\Libs\Message;
 use Message\Libs\Sender;
+use Think\Log;
 
 class SimpleSender extends Sender {
 
@@ -19,7 +20,7 @@ class SimpleSender extends Sender {
      * @return boolean
      */
     function doSend(Message $message) {
-        echo 'simple send => ' . $message->getContent() . '<br>';
+        Log::write('simple send => ' . $message->getContent());
 
         return true;
     }

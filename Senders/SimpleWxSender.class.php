@@ -8,6 +8,7 @@ namespace Message\Senders;
 
 use Message\Libs\Message;
 use Message\Libs\Sender;
+use Think\Log;
 
 class SimpleWxSender extends Sender {
 
@@ -18,7 +19,7 @@ class SimpleWxSender extends Sender {
      * @return boolean
      */
     function doSend(Message $message) {
-        echo '微信端发送 send => ' . $message->getContent() . '<br>';
+        Log::write('微信端发送 send => ' . $message->getContent());
 
         return true;
     }
