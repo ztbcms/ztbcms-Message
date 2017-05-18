@@ -2,10 +2,18 @@
 namespace Message\Controller;
 
 use Common\Controller\AdminBase;
+use Message\Service\MessageService;
 
+/**
+ * 消息
+ */
 class MessageController extends AdminBase {
+    /**
+     * 消息列表页
+     */
     public function index() {
         if (IS_AJAX) {
+            $where = [];
             if (I('where')) {
                 $where = I('where');
                 foreach ($where as $key => $item) {
@@ -28,9 +36,20 @@ class MessageController extends AdminBase {
                 'page_count' => ceil($total / $limit),
             ];
 
-            return $this->success($data);
+            $this->success($data);
+            return;
         }
 
-        return $this->display();
+        $this->display();
+        return;
+    }
+
+    /**
+     * 触发消息处理
+     */
+    public function handleMessage(){
+        $message_id = I('post.message_id');
+        MessageService::handleMessage($message_id);
+        $this->ajaxReturn(self::createReturn(true, null, '操作完成'));
     }
 }

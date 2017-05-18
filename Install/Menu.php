@@ -21,7 +21,13 @@ return array(
                 "type" => 1,
                 "status" => 1,
                 "name" => "消息列表",
-            )
+            ),
+            array(
+                  "route" => "Message/Message/handleMessage",
+                  "type" => 1,
+                  "status" => 0,
+                  "name" => "触发消息处理",
+              )
         ),
     ),
 );

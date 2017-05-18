@@ -36,7 +36,8 @@
                             <td width="120" align="center">创建时间</td>
                             <td width="120" align="center">发送时间</td>
                             <td width="100" align="center">消息类型</td>
-                            <td width="120" align="center">实例化的类名</td>
+                            <td width="120" align="center">类名</td>
+                            <td width="120" align="center">操作</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,6 +85,9 @@
                             </td>
                             <td align="center">
                                 <p>{{ item.class }}</p>
+                            </td>
+                            <td >
+                                <button type="button" class="btn btn-primary" @click="handleMessage(item.id)">触发处理</button>
                             </td>
                         </tr>
                     </tbody>
@@ -137,25 +141,43 @@
                 },
                 methods: {
                     getList: function () {
-                        var that = this
+                        var that = this;
                         var where = {
                             page: this.page,
                             limit: this.limit,
                             where: this.where
-                        }
+                        };
                         $.ajax({
-                            url: "{:U('index')}",
+                            url: "{:U('Message/Message/index')}",
                             data: where,
                             dataType: 'json',
                             type: 'get',
                             success: function (res) {
-                                var data = res.info
+                                var data = res.info;
                                 that.lists = data.lists;
                                 that.page = data.page;
                                 that.limit = data.limit;
                                 that.page_count = data.page_count;
                             }
                         })
+                    },
+                    //处理消息
+                    handleMessage: function (message_id){
+                        $.ajax({
+                            url: "{:U('Message/Message/handleMessage')}",
+                            data: {
+                                message_id: message_id
+                            },
+                            dataType: 'json',
+                            type: 'post',
+                            success: function (res) {
+                                if(res.status){
+                                    layer.msg('操作完成！');
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            }
+                        });
                     }
                 },
                 mounted: function () {
