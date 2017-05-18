@@ -41,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in lists">
+                        <tr v-for="item in items">
                             <td >
                                 {{ item.id }}
                             </td>
@@ -113,7 +113,7 @@
             new Vue({
                 el: '#app',
                 data: {
-                    lists: [],
+                    items: [],
                     page: 1,
                     limit: 20,
                     page_count: 0,
@@ -148,13 +148,13 @@
                             where: this.where
                         };
                         $.ajax({
-                            url: "{:U('Message/Message/index')}",
+                            url: "{:U('Message/Message/getMessageList')}",
                             data: where,
                             dataType: 'json',
                             type: 'get',
                             success: function (res) {
-                                var data = res.info;
-                                that.lists = data.lists;
+                                var data = res.data;
+                                that.items = data.items;
                                 that.page = data.page;
                                 that.limit = data.limit;
                                 that.page_count = data.page_count;

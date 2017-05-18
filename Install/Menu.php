@@ -23,11 +23,17 @@ return array(
                 "name" => "消息列表",
             ),
             array(
-                  "route" => "Message/Message/handleMessage",
-                  "type" => 1,
-                  "status" => 0,
-                  "name" => "触发消息处理",
-              )
+                "route" => "Message/Message/getMessageList",
+                "type" => 1,
+                "status" => 0,
+                "name" => "获取消息列表操作",
+            ),
+            array(
+                "route" => "Message/Message/handleMessage",
+                "type" => 1,
+                "status" => 0,
+                "name" => "触发消息处理",
+            )
         ),
     ),
 );

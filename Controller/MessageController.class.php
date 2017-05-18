@@ -13,35 +13,41 @@ class MessageController extends AdminBase {
      */
     public function index() {
         if (IS_AJAX) {
-            $where = [];
-            if (I('where')) {
-                $where = I('where');
-                foreach ($where as $key => $item) {
-                    if ($item == '') {
-                        unset($where[$key]);
-                    }
-                }
-            }
 
-            $order = 'id desc';
-            $page = I('page', 1);
-            $limit = I('limit', 20);
-            $lists = M('MessageMsg')->where($where)->order($order)->page($page, $limit)->select();
-            $total = M('MessageMsg')->where($where)->count();
-            $data = [
-                'lists' => $lists ? $lists : [],
-                'limit' => $limit,
-                'page' => $page,
-                'total' => $total,
-                'page_count' => ceil($total / $limit),
-            ];
-
-            $this->success($data);
-            return;
         }
 
         $this->display();
         return;
+    }
+
+    /**
+     * 获取消息列表操作
+     */
+    public function getMessageList(){
+        $where = [];
+        if (I('where')) {
+            $where = I('where');
+            foreach ($where as $key => $item) {
+                if ($item == '') {
+                    unset($where[$key]);
+                }
+            }
+        }
+
+        $order = 'id desc';
+        $page = I('page', 1);
+        $limit = I('limit', 20);
+        $lists = M('MessageMsg')->where($where)->order($order)->page($page, $limit)->select();
+        $total = M('MessageMsg')->where($where)->count();
+        $data = [
+            'items' => $lists ? $lists : [],
+            'limit' => $limit,
+            'page' => $page,
+            'total' => $total,
+            'page_count' => ceil($total / $limit),
+        ];
+
+        $this->ajaxReturn(self::createReturn(true, $data));
     }
 
     /**
