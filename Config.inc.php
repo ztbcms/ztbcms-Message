@@ -11,7 +11,7 @@ return array(
     //模块简介
     'introduce' => '私信、提醒，站内信',
     //模块介绍地址
-    'address' => 'http://www.ztbcms.com',
+    'address' => 'http://doc.ztbcms.com/module/message/',
     //模块作者
     'author' => 'Jayin',
     //作者地址
