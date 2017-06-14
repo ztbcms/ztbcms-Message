@@ -25,8 +25,8 @@
             <div class="table_list">
                 <table class="table table-bordered table-hover">
                     <thead>
-                        <tr>
-                            <td width="50" align="center">id</td>
+                        <tr style="background: ghostwhite;">
+                            <td width="50" align="center">ID</td>
                             <td width="100" align="center">消息源</td>
                             <td width="100" align="center">发送者</td>
                             <td width="100" align="center">接收者</td>
