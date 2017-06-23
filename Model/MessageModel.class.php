@@ -31,6 +31,10 @@ class MessageModel extends Model {
      * 处理状态：已处理
      */
     const PROCESS_STATUS_PROCESSED = 1;
+    /**
+     * 处理状态：处理中
+     */
+    const PROCESS_STATUS_PROCESSING = 2;
 
     //=== 阅读状态
     /**

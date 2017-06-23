@@ -23,9 +23,11 @@ class HandleMessage extends Cron {
      * @param string $cronId
      */
     public function run($cronId) {
-        $messages = D('Message/Message')->where(['process_status' => MessageModel::PROCESS_STATUS_UNPROCESS])->field('id')->select();
-        foreach ($messages as $index => $message) {
+
+        $message = MessageService::popMessage()['data'];
+        while (!empty($message)) {
             MessageService::handleMessage($message['id']);
+            $message = MessageService::popMessage()['data'];
         }
     }
 }

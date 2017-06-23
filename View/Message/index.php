@@ -70,8 +70,19 @@
                             </td>
                             <td align="center">
                             <span class="label"
-                                  :class="{'label-success':item.process_status==1,'label-danger':item.process_status!=1}">
-                            {{ item.process_status==1 ? '已处理': '未处理' }}
+                                  :class="{'label-success':item.process_status == 1,'label-danger':item.process_status == 0, 'label-warning':item.process_status == 2}">
+
+                                <template v-if="item.process_status == 0">
+                                    未处理
+                                </template>
+
+                                <template v-if="item.process_status == 1">
+                                    已处理
+                                </template>
+
+                                 <template v-if="item.process_status == 2">
+                                    处理中
+                                </template>
                             </span>
                             </td>
                             <td align="center">

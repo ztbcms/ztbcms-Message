@@ -67,7 +67,7 @@ class MessageService extends BaseService {
             $message = self::instance($msg);
             $senders = $message->createSender();
             //标识发送时间
-            self::updateMessage($message_id, ['send_time' => time()]);
+            self::updateMessage($message_id, ['process_status' => MessageModel::PROCESS_STATUS_PROCESSING, 'send_time' => time()]);
             //每个Sender都发送
             foreach ($senders as $index => $sender){
                 self::sendMessage($sender, $message);
@@ -153,5 +153,22 @@ class MessageService extends BaseService {
         $message->setClass($msg_data['class']);
 
         return $message;
+    }
+
+    /**
+     * 取出一条未处理的消息记录
+     *
+     * @return array
+     */
+    static function popMessage() {
+        $db = D('Message/Message');
+        $db->startTrans();
+        $msg_record = $db->where(['process_status' => MessageModel::PROCESS_STATUS_UNPROCESS])->find();
+        $db->commit();
+        if ($msg_record) {
+            return self::createReturn(true, $msg_record);
+        } else {
+            return self::createReturn(false, null);
+        }
     }
 }
