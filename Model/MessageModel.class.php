@@ -21,6 +21,10 @@ class MessageModel extends Model {
      * 消息类型：提醒
      */
     const TYPE_REMIND = 'remind';
+    /**
+     * 消息类型：公告
+     */
+    const TYPE_ANNOUNCE = 'announce';
 
     //=== 处理状态
     /**

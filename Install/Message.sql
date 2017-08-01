@@ -12,7 +12,7 @@ CREATE TABLE `cms_message_msg` (
   `process_status` int(11) NOT NULL DEFAULT '0' COMMENT '处理状态：0未处理 1已处理, 2处理中',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `send_time` int(11) NOT NULL COMMENT '发送时间',
-  `type` varchar(11) NOT NULL DEFAULT 'message' COMMENT '消息类型：message私信 remind提醒',
+  `type` varchar(11) NOT NULL DEFAULT 'message' COMMENT '消息类型：message私信 remind提醒 announce公告',
   `class` varchar(128) NOT NULL DEFAULT '' COMMENT '实例化的类名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
