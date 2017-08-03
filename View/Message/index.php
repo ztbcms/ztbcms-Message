@@ -1,7 +1,7 @@
 <extend name="../../Admin/View/Common/base_layout"/>
 
 <block name="content">
-    <div id="app" style="padding: 8px;">
+    <div id="app" style="padding: 8px;" v-cloak>
         <h4>搜索</h4>
         <hr>
         <div class="search_type cc mb10">
