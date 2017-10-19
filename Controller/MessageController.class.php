@@ -12,10 +12,6 @@ class MessageController extends AdminBase {
      * 消息列表页
      */
     public function index() {
-        if (IS_AJAX) {
-
-        }
-
         $this->display();
         return;
     }
@@ -24,17 +20,14 @@ class MessageController extends AdminBase {
      * 获取消息列表操作
      */
     public function getMessageList(){
-        $where = [];
-        if (I('where')) {
-            $where = I('where');
-            foreach ($where as $key => $item) {
-                if ($item == '') {
-                    unset($where[$key]);
-                }
+        $where = I('where', []);
+        foreach ($where as $key => $item) {
+            if ($item == '') {
+                unset($where[$key]);
             }
         }
 
-        $order = 'id desc';
+        $order = 'id DESC';
         $page = I('page', 1);
         $limit = I('limit', 20);
         $lists = M('MessageMsg')->where($where)->order($order)->page($page, $limit)->select();
@@ -54,7 +47,7 @@ class MessageController extends AdminBase {
      * 触发消息处理
      */
     public function handleMessage(){
-        $message_id = I('post.message_id');
+        $message_id = I('message_id');
         MessageService::handleMessage($message_id);
         $this->ajaxReturn(self::createReturn(true, null, '操作完成'));
     }
