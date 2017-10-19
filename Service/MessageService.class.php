@@ -80,6 +80,8 @@ class MessageService extends BaseService {
     }
 
     /**
+     * 发送消息
+     *
      * @param Sender  $sender
      * @param Message $message
      * @return bool
@@ -89,7 +91,7 @@ class MessageService extends BaseService {
     }
 
     /**
-     * 更新信息相关信息
+     * 更新消息
      *
      * @param       $message_id
      * @param array $data
