@@ -14,5 +14,6 @@ CREATE TABLE `cms_message_msg` (
   `send_time` int(11) NOT NULL COMMENT '发送时间',
   `type` varchar(11) NOT NULL DEFAULT 'message' COMMENT '消息类型：message私信 remind提醒 announce公告',
   `class` varchar(128) NOT NULL DEFAULT '' COMMENT '实例化的类名',
+  `read_time` int(11) NOT NULL COMMENT '阅读时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

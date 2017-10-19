@@ -28,7 +28,13 @@ class TestController extends AdminBase {
         foreach ($messages as $index => $message) {
             MessageService::handleMessage($message['id']);
         }
+    }
 
+    //阅读消息
+    function readMessage(){
+        $message_id = I('message_id');
+        $res=  MessageService::readMessage($message_id);
+        var_dump($res);
     }
 
 }

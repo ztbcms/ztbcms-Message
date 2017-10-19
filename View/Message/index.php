@@ -35,6 +35,7 @@
                             <td width="80" align="center">处理状态</td>
                             <td width="120" align="center">创建时间</td>
                             <td width="120" align="center">发送时间</td>
+                            <td width="120" align="center">阅读时间</td>
                             <td width="100" align="center">消息类型</td>
                             <td width="120" align="center">类名</td>
                             <td width="120" align="center">操作</td>
@@ -42,7 +43,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="item in items">
-                            <td >
+                            <td align="center">
                                 {{ item.id }}
                             </td>
                             <td align="center">
@@ -90,6 +91,9 @@
                             </td>
                             <td align="center">
                                 <p>{{ item.send_time | getFormatTime }}</p>
+                            </td>
+                            <td align="center">
+                                <p>{{ item.read_time | getFormatTime }}</p>
                             </td>
                             <td align="center">
                                 {{ item.type }}

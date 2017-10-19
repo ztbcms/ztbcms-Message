@@ -80,6 +80,16 @@ class MessageService extends BaseService {
     }
 
     /**
+     * 阅读消息
+     *
+     * @param $message_id
+     * @return array
+     */
+    static function readMessage($message_id){
+        return self::updateMessage($message_id, ['read_time' => time(), 'read_status' => MessageModel::READ_STATUS_READ]);
+    }
+
+    /**
      * 发送消息
      *
      * @param Sender  $sender
@@ -100,6 +110,7 @@ class MessageService extends BaseService {
     private static function updateMessage($message_id, array $data) {
         $db = D('Message/Message');
         $result = $db->where(['id' => $message_id])->save($data);
+
         if ($result) {
             return self::createReturn(true, $result);
         }
