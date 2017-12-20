@@ -1,14 +1,14 @@
 <extend name="../../Admin/View/Common/base_layout"/>
 
 <block name="content">
-    <div id="app" style="padding: 8px;" v-cloak>
+    <div id="app" style="padding: 8px;">
         <h4>搜索</h4>
         <hr>
         <div class="search_type cc mb10">
             消息源：<input type="text" v-model="where.target" name="" class="input">
             发送者：<input type="text" v-model="where.sender" name="" class="input">
             接收者：<input type="text" v-model="where.receiver" name="" class="input">
-            是否处理：<select v-model="where.process_status"  style="background: white;height: 28px;">
+            是否处理：<select v-model="where.process_status" style="background: white;height: 28px;">
                 <option value="">处理状态</option>
                 <option value="0">未处理</option>
                 <option value="1">已处理</option>
@@ -25,86 +25,73 @@
             <div class="table_list">
                 <table class="table table-bordered table-hover">
                     <thead>
-                        <tr style="background: ghostwhite;">
-                            <td width="50" align="center">ID</td>
-                            <td width="100" align="center">消息源</td>
-                            <td width="100" align="center">发送者</td>
-                            <td width="100" align="center">接收者</td>
-                            <td align="center">内容</td>
-                            <td width="80" align="center">阅读状态</td>
-                            <td width="80" align="center">处理状态</td>
-                            <td width="120" align="center">创建时间</td>
-                            <td width="120" align="center">发送时间</td>
-                            <td width="120" align="center">阅读时间</td>
-                            <td width="100" align="center">消息类型</td>
-                            <td width="120" align="center">类名</td>
-                            <td width="120" align="center">操作</td>
-                        </tr>
+                    <tr>
+                        <td width="50" align="center">id</td>
+                        <td width="100" align="center">消息源</td>
+                        <td width="100" align="center">发送者</td>
+                        <td width="100" align="center">接收者</td>
+                        <td align="center">标题</td>
+                        <td align="center">内容</td>
+                        <td width="80" align="center">阅读状态</td>
+                        <td width="80" align="center">处理状态</td>
+                        <td width="120" align="center">创建时间</td>
+                        <td width="120" align="center">发送时间</td>
+                        <td width="100" align="center">消息类型</td>
+                        <td width="120" align="center">类名</td>
+                        <td width="120" align="center">操作</td>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in items">
-                            <td align="center">
-                                {{ item.id }}
-                            </td>
-                            <td align="center">
-                                {{ item.target }}
-                                <p style="color: grey">{{ item.target_type }}</p>
-                            </td>
-                            <td >
-                                {{ item.sender }}
-                                <p style="color: grey">
-                                    {{ item.sender_type }}
-                                </p>
-                            </td>
-                            <td >
-                                {{ item.receiver }}
-                                <p style="color: grey">
-                                    {{ item.receiver_type }}
-                                </p>
-                            </td>
-                            <td >{{ item.content }}</td>
-                            <td >
+                    <tr v-for="item in items">
+                        <td>
+                            {{ item.id }}
+                        </td>
+                        <td align="center">
+                            {{ item.target }}
+                            <p style="color: grey">{{ item.target_type }}</p>
+                        </td>
+                        <td>
+                            {{ item.sender }}
+                            <p style="color: grey">
+                                {{ item.sender_type }}
+                            </p>
+                        </td>
+                        <td>
+                            {{ item.receiver }}
+                            <p style="color: grey">
+                                {{ item.receiver_type }}
+                            </p>
+                        </td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.content }}</td>
+                        <td>
                             <span class="label"
                                   :class="{'label-success':item.read_status==1,'label-danger':item.read_status!=1}">
                             {{ item.read_status == 1 ? '已读':'未读' }}
                             </span>
-                            </td>
-                            <td align="center">
+                        </td>
+                        <td align="center">
                             <span class="label"
-                                  :class="{'label-success':item.process_status == 1,'label-danger':item.process_status == 0, 'label-warning':item.process_status == 2}">
-
-                                <template v-if="item.process_status == 0">
-                                    未处理
-                                </template>
-
-                                <template v-if="item.process_status == 1">
-                                    已处理
-                                </template>
-
-                                 <template v-if="item.process_status == 2">
-                                    处理中
-                                </template>
+                                  :class="{'label-success':item.process_status==1,'label-danger':item.process_status!=1}">
+                            {{ item.process_status==1 ? '已处理': '未处理' }}
                             </span>
-                            </td>
-                            <td align="center">
-                                <p>{{ item.create_time | getFormatTime }}</p>
-                            </td>
-                            <td align="center">
-                                <p>{{ item.send_time | getFormatTime }}</p>
-                            </td>
-                            <td align="center">
-                                <p>{{ item.read_time | getFormatTime }}</p>
-                            </td>
-                            <td align="center">
-                                {{ item.type }}
-                            </td>
-                            <td align="center">
-                                <p>{{ item.class }}</p>
-                            </td>
-                            <td >
-                                <button type="button" class="btn btn-primary" @click="handleMessage(item.id)">触发处理</button>
-                            </td>
-                        </tr>
+                        </td>
+                        <td align="center">
+                            <p>{{ item.create_time | getFormatTime }}</p>
+                        </td>
+                        <td align="center">
+                            <p>{{ item.send_time | getFormatTime }}</p>
+                        </td>
+                        <td align="center">
+                            {{ item.type }}
+                        </td>
+                        <td align="center">
+                            <p>{{ item.class }}</p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" @click="handleMessage(item.id)">触发处理</button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
 
@@ -140,7 +127,7 @@
                 },
                 filters: {
                     getFormatTime: function (value) {
-                        if(value == '' || value == 0){
+                        if (value == '' || value == 0) {
                             return '/';
                         }
                         var time = new Date(parseInt(value * 1000));
@@ -177,7 +164,7 @@
                         })
                     },
                     //处理消息
-                    handleMessage: function (message_id){
+                    handleMessage: function (message_id) {
                         $.ajax({
                             url: "{:U('Message/Message/handleMessage')}",
                             data: {
@@ -186,9 +173,9 @@
                             dataType: 'json',
                             type: 'post',
                             success: function (res) {
-                                if(res.status){
+                                if (res.status) {
                                     layer.msg('操作完成！');
-                                }else{
+                                } else {
                                     layer.msg(res.msg);
                                 }
                             }
