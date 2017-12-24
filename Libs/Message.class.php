@@ -16,13 +16,12 @@ abstract class Message {
      *
      * @var string
      */
-    protected $title         = '';
-    protected $content       = '';
-    protected $target        = '';
-    protected $target_type   = '';
-    protected $sender        = '';
-    protected $sender_type   = '';
-    protected $receiver      = '';
+    protected $content = '';
+    protected $target = '';
+    protected $target_type = '';
+    protected $sender = '';
+    protected $sender_type = '';
+    protected $receiver = '';
     protected $receiver_type = '';
     protected $create_time;
     protected $send_time;
@@ -50,20 +49,6 @@ abstract class Message {
      * @return array Senders数组
      */
     abstract function createSender();
-
-    /**
-     * @return string
-     */
-    public function getTitle() {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title) {
-        $this->title = $title;
-    }
 
     /**
      * @return string

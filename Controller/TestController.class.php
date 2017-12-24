@@ -17,9 +17,8 @@ class TestController extends AdminBase {
     function pushMessage() {
         $sender = 'jayin';
         $receiver = 'admin';
-        $title = '消息';
         $content = '用户 ' . $sender . ' 对用户 ' . $receiver . ' 说:' . '你好，这是推送 at ' . date('Y-m-d H:i:s');
-        $msg = new SimpleMessage($sender, $receiver, $title, $content);
+        $msg = new SimpleMessage($sender, $receiver, $content);
         MessageService::createMessage($msg);
     }
 
