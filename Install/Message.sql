@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS `cms_message_msg`;
 CREATE TABLE `cms_message_msg` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '消息标题',
   `content` varchar(512) NOT NULL DEFAULT '' COMMENT '消息内容',
   `target` varchar(128) NOT NULL DEFAULT '' COMMENT '消息源',
   `target_type` varchar(11) NOT NULL DEFAULT '' COMMENT '消息源类型',

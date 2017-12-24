@@ -27,6 +27,7 @@ class MessageService extends BaseService {
 
         $now = time();
         $data = [
+            'title' => $message->getTitle(),
             'content' => $message->getContent(),
             'target' => $message->getTarget(),
             'target_type' => $message->getTargetType(),
@@ -150,6 +151,7 @@ class MessageService extends BaseService {
      * @return Message
      */
     private static function initData(Message $message, $msg_data) {
+        $message->setTitle($msg_data['title']);
         $message->setContent($msg_data['content']);
 
         $message->setTarget($msg_data['target']);

@@ -30,6 +30,7 @@
                             <td width="100" align="center">消息源</td>
                             <td width="100" align="center">发送者</td>
                             <td width="100" align="center">接收者</td>
+                            <td align="center">标题</td>
                             <td align="center">内容</td>
                             <td width="80" align="center">阅读状态</td>
                             <td width="80" align="center">处理状态</td>
@@ -62,6 +63,7 @@
                                     {{ item.receiver_type }}
                                 </p>
                             </td>
+                            <td >{{ item.title }}</td>
                             <td >{{ item.content }}</td>
                             <td >
                             <span class="label"

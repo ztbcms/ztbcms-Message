@@ -11,6 +11,7 @@ namespace Message\Libs;
  */
 abstract class Message {
 
+    protected $title = '';
     /**
      * 消息内容
      *
@@ -42,6 +43,20 @@ abstract class Message {
     protected $process_status = 0;
 
     protected $read_status = 0;
+
+    /**
+     * @return string
+     */
+    public function getTitle() {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+    }
 
     /**
      * 消息分发渠道

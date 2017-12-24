@@ -23,9 +23,12 @@ class SimpleMessage extends Message {
      *
      * @param string $sender
      * @param string $receiver 接收人ID
+     * @param string $title
      * @param string $content  消息ID
      */
-    public function __construct($sender, $receiver, $content = '') {
+    public function __construct($sender, $receiver, $title, $content = '') {
+        $this->setTitle($title);
+
         $this->setContent($content);
         $this->setType(MessageModel::TYPE_MESSAGE);
 
