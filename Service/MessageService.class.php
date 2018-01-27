@@ -76,6 +76,8 @@ class MessageService extends BaseService {
             }
             //标识为已处理
             self::updateMessage($message_id, ['process_status' => MessageModel::PROCESS_STATUS_PROCESSED]);
+            //处理次数+1，用于debug消息确认是否手动重复执行正确;高并发下会不会同一消息处理两次
+            $db->where(['id' => $message_id])->setInc('process_num', 1);
         }
 
         return self::createReturn(true, '');
