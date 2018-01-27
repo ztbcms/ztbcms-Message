@@ -38,4 +38,17 @@ class TestController extends AdminBase {
         var_dump($res);
     }
 
+    //批量创建消息
+    function batchPushMessage(){
+        $total = 1000;
+        for ($i = 0; $i < $total; $i++){
+            $sender = 'jayin'.$i;
+            $receiver = 'admin'.$i;
+            $title = '消息'.$i;
+            $content = '用户 ' . $sender . ' 对用户 ' . $receiver . ' 说:' . '你好，这是推送 at ' . date('Y-m-d H:i:s');
+            $msg = new SimpleMessage($sender, $receiver, $title, $content);
+            MessageService::createMessage($msg);
+        }
+
+    }
 }

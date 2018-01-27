@@ -4,26 +4,32 @@
  * author: Jayin <tonjayin@gmail.com>
  */
 
-namespace Message\CronScript;
+namespace Message\Controller;
 
-use Cron\Base\Cron;
-use Message\Model\MessageModel;
+use Common\Controller\Base;
 use Message\Service\MessageService;
 
 /**
- * 处理(发送)消息
- *
- * 建议每隔1分钟处理一次
+ * Class CliController
  */
-class HandleMessage extends Cron {
+class CliController extends Base {
+
+    protected function _initialize() {
+        parent::_initialize();
+
+        //如要开启以CLI 形式启动，请注释下面语句
+        exit();
+
+        set_time_limit(0);
+        ignore_user_abort(true);
+    }
+
 
     /**
-     * 执行任务回调
-     *
-     * @param string $cronId
+     * CLI入口
+     * php index.php /Message/Cli/start
      */
-    public function run($cronId) {
-
+    function start(){
         $unhandle_amount = MessageService::getUnhandleCount()['data']['count'];
         while ($unhandle_amount) {
             $message = MessageService::popMessage()['data'];
@@ -33,4 +39,5 @@ class HandleMessage extends Cron {
             $unhandle_amount = MessageService::getUnhandleCount()['data']['count'];
         }
     }
+
 }

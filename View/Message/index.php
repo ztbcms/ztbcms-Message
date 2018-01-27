@@ -11,6 +11,7 @@
             是否处理：<select v-model="where.process_status"  style="background: white;height: 28px;">
                 <option value="">处理状态</option>
                 <option value="0">未处理</option>
+                <option value="2">处理中</option>
                 <option value="1">已处理</option>
             </select>
             是否阅读：<select v-model="where.read_status" style="background: white;height: 28px;">
