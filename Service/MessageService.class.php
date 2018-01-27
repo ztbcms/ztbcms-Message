@@ -68,9 +68,10 @@ class MessageService extends BaseService {
             $message = self::instance($msg);
             $senders = $message->createSender();
             //标识发送时间
-            self::updateMessage($message_id, ['process_status' => MessageModel::PROCESS_STATUS_PROCESSING, 'send_time' => time()]);
+            self::updateMessage($message_id,
+                ['process_status' => MessageModel::PROCESS_STATUS_PROCESSING, 'send_time' => time()]);
             //每个Sender都发送
-            foreach ($senders as $index => $sender){
+            foreach ($senders as $index => $sender) {
                 self::sendMessage($sender, $message);
             }
             //标识为已处理
@@ -86,18 +87,19 @@ class MessageService extends BaseService {
      * @param $message_id
      * @return array
      */
-    static function readMessage($message_id){
-        return self::updateMessage($message_id, ['read_time' => time(), 'read_status' => MessageModel::READ_STATUS_READ]);
+    static function readMessage($message_id) {
+        return self::updateMessage($message_id,
+            ['read_time' => time(), 'read_status' => MessageModel::READ_STATUS_READ]);
     }
 
     /**
      * 发送消息
      *
-     * @param Sender  $sender
+     * @param Sender $sender
      * @param Message $message
      * @return bool
      */
-    private static function sendMessage(Sender $sender, Message $message){
+    private static function sendMessage(Sender $sender, Message $message) {
         return $sender->doSend($message);
     }
 
@@ -177,13 +179,36 @@ class MessageService extends BaseService {
      */
     static function popMessage() {
         $db = D('Message/Message');
+        $result = false;
         $db->startTrans();
         $msg_record = $db->where(['process_status' => MessageModel::PROCESS_STATUS_UNPROCESS])->find();
-        $db->commit();
-        if ($msg_record) {
+        if($msg_record){
+            $save_result = $db->where([
+                'id' => $msg_record['id'],
+                'process_status' => MessageModel::PROCESS_STATUS_UNPROCESS
+            ])->save(['process_status' => MessageModel::PROCESS_STATUS_PROCESSING]);
+            if($save_result){
+                $result = $db->commit();
+            }
+        }
+
+        if ($result) {
             return self::createReturn(true, $msg_record);
         } else {
+            $db->rollback();
             return self::createReturn(false, null);
         }
+    }
+
+    /**
+     * 获取队列中未处理的数
+     *
+     * @return array
+     */
+    static function getUnhandleCount(){
+        $db = D('Message/Message');
+        $count =  $db->where(['process_status' => MessageModel::PROCESS_STATUS_UNPROCESS])->count();
+
+        return self::createReturn(true, ['count' => $count]);
     }
 }
