@@ -24,10 +24,13 @@ class HandleMessage extends Cron {
      */
     public function run($cronId) {
 
-        $message = MessageService::popMessage()['data'];
-        while (!empty($message)) {
-            MessageService::handleMessage($message['id']);
+        $unhandle_amount = MessageService::getUnhandleCount()['data']['count'];
+        while ($unhandle_amount) {
             $message = MessageService::popMessage()['data'];
+            if($message){
+                MessageService::handleMessage($message['id']);
+            }
+            $unhandle_amount = MessageService::getUnhandleCount()['data']['count'];
         }
     }
 }
