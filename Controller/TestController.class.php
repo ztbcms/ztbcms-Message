@@ -40,7 +40,8 @@ class TestController extends AdminBase {
 
     //批量创建消息
     function batchPushMessage(){
-        $total = 1000;
+        $start = time();
+        $total = 2000;
         for ($i = 0; $i < $total; $i++){
             $sender = 'jayin'.$i;
             $receiver = 'admin'.$i;
@@ -49,6 +50,10 @@ class TestController extends AdminBase {
             $msg = new SimpleMessage($sender, $receiver, $title, $content);
             MessageService::createMessage($msg);
         }
+        $end = time();
+        echo ' start at ' . date('Y-m-d H:i:s', $start) ;
+        echo ' end at' . date('Y-m-d H:i:s', $end);
+        echo ' use time ' . ($end - $start) . 's';
 
     }
 }

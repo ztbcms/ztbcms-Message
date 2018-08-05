@@ -11,12 +11,11 @@ namespace Message\Libs;
  */
 abstract class Message {
 
+    //消息ID
+    protected $id = '';
+    //标题
     protected $title = '';
-    /**
-     * 消息内容
-     *
-     * @var string
-     */
+    //消息内容
     protected $content = '';
     protected $target = '';
     protected $target_type = '';
@@ -27,22 +26,26 @@ abstract class Message {
     protected $create_time;
     protected $send_time;
     protected $class;
-
-    /**
-     * 消息类型
-     *
-     * @var int
-     */
+    //消息类型
     protected $type = 1;
+    //处理状态 0未处理 1已处理, 2处理中
+    protected $process_status = 0;
+    //阅读状态 0未阅读 1已阅读
+    protected $read_status = 0;
 
     /**
-     * 处理状态
-     *
-     * @var int
+     * @return string
      */
-    protected $process_status = 0;
+    public function getId() {
+        return $this->id;
+    }
 
-    protected $read_status = 0;
+    /**
+     * @param string $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @return string

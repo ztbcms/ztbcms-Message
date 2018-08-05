@@ -17,5 +17,10 @@ CREATE TABLE `cms_message_msg` (
   `class` varchar(128) NOT NULL DEFAULT '' COMMENT '实例化的类名',
   `read_time` int(11) NOT NULL COMMENT '阅读时间',
   `process_num` int(11) NOT NULL DEFAULT '0' COMMENT '处理次数',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `create_time` (`create_time`),
+  KEY `sender` (`sender`),
+  KEY `sender_type` (`sender_type`),
+  KEY `receiver` (`receiver`),
+  KEY `receiver_type` (`receiver_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
