@@ -155,6 +155,7 @@ class MessageService extends BaseService {
      * @return Message
      */
     private static function initData(Message $message, $msg_data) {
+        $message->setId($msg_data['id']);
         $message->setTitle($msg_data['title']);
         $message->setContent($msg_data['content']);
 
