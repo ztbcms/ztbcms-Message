@@ -26,6 +26,7 @@ abstract class Message {
     protected $create_time;
     protected $send_time;
     protected $class;
+    protected $url;
     //消息类型
     protected $type = 1;
     //处理状态 0未处理 1已处理, 2处理中
@@ -250,5 +251,18 @@ abstract class Message {
         $this->type = $type;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUrl() {
+        return $this->url;
+    }
+
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url) {
+        $this->url = $url;
+    }
 
 }

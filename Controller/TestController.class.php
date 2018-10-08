@@ -20,6 +20,7 @@ class TestController extends AdminBase {
         $title = '消息';
         $content = '用户 ' . $sender . ' 对用户 ' . $receiver . ' 说:' . '你好，这是推送 at ' . date('Y-m-d H:i:s');
         $msg = new SimpleMessage($sender, $receiver, $title, $content);
+        $msg->setUrl('http://ztbcms.com');
         MessageService::createMessage($msg);
     }
 
