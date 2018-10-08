@@ -20,7 +20,7 @@ class SimpleSender extends Sender {
      * @return boolean
      */
     function doSend(Message $message) {
-        Log::write('simple send => msg_id=>' . $message->getId() . ' content=> ' . $message->getContent());
+        Log::write('simple send => msg_id=>' . $message->getId() . ' content=> ' . $message->getContent() . ' url=>' . $message->getUrl());
 
         return true;
     }

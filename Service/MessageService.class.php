@@ -41,6 +41,7 @@ class MessageService extends BaseService {
             'send_time' => 0,
             'type' => $message->getType(),
             'class' => $class,
+            'url' => $message->getUrl()
         ];
 
         $result = D('Message/Message')->add($data);
@@ -171,6 +172,7 @@ class MessageService extends BaseService {
         $message->setCreateTime($msg_data['create_time']);
         $message->setType($msg_data['type']);
         $message->setClass($msg_data['class']);
+        $message->setUrl($msg_data['url']);
 
         return $message;
     }
