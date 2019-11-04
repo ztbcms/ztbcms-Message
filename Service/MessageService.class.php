@@ -40,6 +40,7 @@ class MessageService extends BaseService {
             'create_time' => $now,
             'send_time' => 0,
             'type' => $message->getType(),
+            'category' => $message->getCategory(),
             'class' => $class,
             'url' => $message->getUrl()
         ];

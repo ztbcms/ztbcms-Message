@@ -28,7 +28,9 @@ abstract class Message {
     protected $class;
     protected $url;
     //消息类型
-    protected $type = 1;
+    protected $type = '';
+    //消息分类
+    protected $category = '';
     //处理状态 0未处理 1已处理, 2处理中
     protected $process_status = 0;
     //阅读状态 0未阅读 1已阅读
@@ -263,6 +265,22 @@ abstract class Message {
      */
     public function setUrl($url) {
         $this->url = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 
 }
