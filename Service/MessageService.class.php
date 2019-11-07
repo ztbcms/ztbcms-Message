@@ -48,7 +48,7 @@ class MessageService extends BaseService {
         $result = D('Message/Message')->add($data);
 
         if ($result) {
-            return self::createReturn(true, $result);
+            return self::createReturn(true, ['msg_id' => $result]);
         }
 
         return self::createReturn(false, null, '操作失败');
