@@ -7,6 +7,7 @@
 namespace Message\Controller;
 
 use Common\Controller\Base;
+use Message\Libs\Utils;
 use Message\Service\MessageService;
 
 /**
@@ -18,10 +19,10 @@ class CliController extends Base {
         parent::_initialize();
 
         //如要开启以CLI 形式启动，请注释下面语句
-        exit();
-
-        set_time_limit(0);
-        ignore_user_abort(true);
+        if(!IS_CLI){
+            echo '请用命令行运行！';
+            exit;
+        }
     }
 
 
@@ -30,14 +31,31 @@ class CliController extends Base {
      * php index.php /Message/Cli/start
      */
     function start(){
-        $unhandle_amount = MessageService::getUnhandleCount()['data']['count'];
-        while ($unhandle_amount) {
+        cache('__message_loop_stop__', null);
+        while (true) {
             $message = MessageService::popMessage()['data'];
             if($message){
+                Utils::log('Process MsgId:'.$message['id']);
                 MessageService::handleMessage($message['id']);
             }
             $unhandle_amount = MessageService::getUnhandleCount()['data']['count'];
+            if($unhandle_amount == 0){
+                sleep(C('MESSAGE_LOOP_SLEEP'));
+            }
+            if (cache('__message_loop_stop__')) {
+                Utils::log('Process exit with stop signal');
+                break;
+            }
         }
+    }
+
+    /**
+     * 停止
+     */
+    function stop(){
+        cache('__message_loop_stop__', 1);
+        Utils::log('Send STOP signal.');
+        exit;
     }
 
 }
