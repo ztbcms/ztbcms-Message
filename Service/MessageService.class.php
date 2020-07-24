@@ -143,10 +143,12 @@ class MessageService extends BaseService {
      * 创建消息实例
      *
      * @param $class
-     * @return Message
+     *
+     * @return Message|object
      */
     private static function instanceMessage($class) {
-        return new $class;
+        $reflection = new \ReflectionClass($class);
+        return $reflection->newInstanceWithoutConstructor();
     }
 
     /**
