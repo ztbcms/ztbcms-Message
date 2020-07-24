@@ -29,7 +29,8 @@ class TestController extends AdminBase {
     function handleMessage() {
         $messages = D('Message/Message')->where(['process_status' => MessageModel::PROCESS_STATUS_UNPROCESS])->field('id')->select();
         foreach ($messages as $index => $message) {
-            MessageService::handleMessage($message['id']);
+            $res = MessageService::handleMessage($message['id']);
+            var_dump($res);
         }
     }
 

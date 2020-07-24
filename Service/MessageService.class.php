@@ -68,6 +68,9 @@ class MessageService extends BaseService {
 
         if ($msg && !empty($msg['class'])) {
             $message = self::instance($msg);
+            if ($message->getProcessStatus() != MessageModel::PROCESS_STATUS_UNPROCESS) {
+                return self::createReturn(false, '消息处理中或已处理');
+            }
             $senders = $message->createSender();
             //标识发送时间
             self::updateMessage($message_id,
@@ -82,7 +85,7 @@ class MessageService extends BaseService {
             $db->where(['id' => $message_id])->setInc('process_num', 1);
         }
 
-        return self::createReturn(true, '');
+        return self::createReturn(true, '处理完成');
     }
 
     /**
